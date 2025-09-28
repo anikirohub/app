@@ -128,9 +128,14 @@ jobs:
         if: steps.check_workflow.outputs.skip == 'false' && steps.update.outputs.updated != ''
         shell: bash
         run: |
-          echo "Locales updated: ${{ steps.update.outputs.updated }}"
+          set -euo pipefail
+          UPDATED="${{ steps.update.outputs.updated }}"      # space-separated "locale:checksum" pairs
+          # Extract just the locale names for a short, single-line commit message
+          LOCALES_LIST=$(printf '%s\n' "$UPDATED" | tr ' ' '\n' | sed 's/:.*//' | sort -u | xargs)
+          COUNT=$(printf '%s\n' "$LOCALES_LIST" | wc -w | awk '{print $1}')
+          
           git status
-          git commit -m "Update translation checksums [skip ci] - Locales: ${{ steps.update.outputs.updated }}" || echo "No changes to commit"
+          git commit -m "Update translation checksums [skip ci] - ${COUNT} locale(s)" || echo "No changes to commit"
           git push
 
       - name: Summary
@@ -139,12 +144,23 @@ jobs:
         run: |
           echo "## App Translation Checksum Update" >> "$GITHUB_STEP_SUMMARY"
           if [ -z "${{ steps.changed_locales.outputs.locales }}" ]; then
-            echo "No locale JSON changes detected." >> "$GITHUB_STEP_SUMMARY"
+            echo "No locale JSON changes detected (or bootstrapping not needed)." >> "$GITHUB_STEP_SUMMARY"
           else
             echo "**Processed locales:** \`${{ steps.changed_locales.outputs.locales }}\`" >> "$GITHUB_STEP_SUMMARY"
             if [ -n "${{ steps.update.outputs.updated }}" ]; then
               echo "" >> "$GITHUB_STEP_SUMMARY"
-              echo "✅ **Updated:** \`${{ steps.update.outputs.updated }}\`" >> "$GITHUB_STEP_SUMMARY"
+              echo "### Updated checksums" >> "$GITHUB_STEP_SUMMARY"
+              # Pretty-print each locale with a short hash for readability, full under details
+              while read -r pair; do
+                locale="${pair%%:*}"
+                hash="${pair#*:}"
+                short="${hash:0:12}"
+                echo "- \`${locale}\`: \`${short}\`" >> "$GITHUB_STEP_SUMMARY"
+              done < <(printf '%s\n' "${{ steps.update.outputs.updated }}" | tr ' ' '\n')
+              echo "" >> "$GITHUB_STEP_SUMMARY"
+              echo "<details><summary>Full hashes</summary>" >> "$GITHUB_STEP_SUMMARY"
+              printf '%s\n' "${{ steps.update.outputs.updated }}" | tr ' ' '\n' | sed 's/^/- /' >> "$GITHUB_STEP_SUMMARY"
+              echo "</details>" >> "$GITHUB_STEP_SUMMARY"
             else
               echo "" >> "$GITHUB_STEP_SUMMARY"
               echo "ℹ️ Checksums unchanged." >> "$GITHUB_STEP_SUMMARY"
