@@ -1,0 +1,128 @@
+name: Update App Translation Checksums
+
+on:
+  push:
+    paths-ignore:
+      - '**/checksum'
+
+jobs:
+  update-app-checksums:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Skip if the commit is from this workflow
+        id: check_workflow
+        shell: bash
+        run: |
+          if [[ "${{ github.event.head_commit.author.name }}" == "github-actions[bot]" ]]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout code
+        if: steps.check_workflow.outputs.skip == 'false'
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Git
+        if: steps.check_workflow.outputs.skip == 'false'
+        shell: bash
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Determine locales that changed
+        if: steps.check_workflow.outputs.skip == 'false'
+        id: changed_locales
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          BEFORE="${{ github.event.before }}"
+          AFTER="${{ github.sha }}"
+
+          if [ -z "${BEFORE}" ] || [ "${BEFORE}" = "0000000000000000000000000000000000000000" ]; then
+            echo "Initial push or missing 'before'; consider all locales under app/ that contain JSON."
+            mapfile -t LOCALES < <(find app -type f -name '*.json' -printf '%P\n' \
+              | sed -E 's#^([^/]+)/.*#\1#' | sort -u)
+          else
+            # Diff everything under app/, filter to JSON, then extract the first directory (locale)
+            mapfile -t LOCALES < <(git diff --name-only "${BEFORE}" "${AFTER}" -- app \
+              | grep -E '\.json$' | sed -nE 's#^app/([^/]+)/.*#\1#p' | sort -u)
+          fi
+
+          if [ "${#LOCALES[@]}" -eq 0 ]; then
+            echo "locales=" >> "$GITHUB_OUTPUT"
+            echo "No locale changes detected."
+            exit 0
+          fi
+
+          echo "locales=${LOCALES[*]}" >> "$GITHUB_OUTPUT"
+          printf 'Changed locales: %s\n' "${LOCALES[*]}"
+
+      - name: Update checksum files for changed locales
+        if: steps.check_workflow.outputs.skip == 'false' && steps.changed_locales.outputs.locales != ''
+        id: update
+        shell: bash
+        run: |
+          set -euo pipefail
+          IFS=' ' read -r -a LOCALES <<< "${{ steps.changed_locales.outputs.locales }}"
+          UPDATED=""
+          for locale in "${LOCALES[@]}"; do
+            dir="app/$locale"
+            mapfile -t files < <(find "$dir" -type f -name '*.json' | sort)
+            if [ "${#files[@]}" -eq 0 ]; then
+              checksum=$(printf '' | sha256sum | cut -d' ' -f1)
+            else
+              checksum=$(cat "${files[@]}" | sha256sum | cut -d' ' -f1)
+            fi
+
+            checksum_file="$dir/checksum"
+            old=""
+            if [ -f "$checksum_file" ]; then
+              old=$(cat "$checksum_file" || true)
+            fi
+
+            if [ "$checksum" != "$old" ]; then
+              echo "$checksum" > "$checksum_file"
+              git add "$checksum_file"
+              UPDATED="${UPDATED}${UPDATED:+ }${locale}:${checksum}"
+              echo "Updated $checksum_file -> $checksum"
+            else
+              echo "No change for $locale (checksum unchanged)."
+            fi
+          done
+
+          echo "updated=${UPDATED}" >> "$GITHUB_OUTPUT"
+
+      - name: Commit and push
+        if: steps.check_workflow.outputs.skip == 'false' && steps.update.outputs.updated != ''
+        shell: bash
+        run: |
+          echo "Locales updated: ${{ steps.update.outputs.updated }}"
+          git status
+          git commit -m "Update translation checksums [skip ci] - Locales: ${{ steps.update.outputs.updated }}" || echo "No changes to commit"
+          git push
+
+      - name: Summary
+        if: steps.check_workflow.outputs.skip == 'false'
+        shell: bash
+        run: |
+          echo "## App Translation Checksum Update" >> "$GITHUB_STEP_SUMMARY"
+          if [ -z "${{ steps.changed_locales.outputs.locales }}" ]; then
+            echo "No locale JSON changes detected." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "**Changed locales considered:** \`${{ steps.changed_locales.outputs.locales }}\`" >> "$GITHUB_STEP_SUMMARY"
+            if [ -n "${{ steps.update.outputs.updated }}" ]; then
+              echo "" >> "$GITHUB_STEP_SUMMARY"
+              echo "✅ **Updated:** \`${{ steps.update.outputs.updated }}\`" >> "$GITHUB_STEP_SUMMARY"
+            else
+              echo "" >> "$GITHUB_STEP_SUMMARY"
+              echo "ℹ️ Checksums unchanged for changed locales." >> "$GITHUB_STEP_SUMMARY"
+            fi
+          fi
