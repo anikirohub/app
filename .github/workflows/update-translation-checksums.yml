@@ -3,7 +3,7 @@ name: Update App Translation Checksums
 on:
   push:
     paths-ignore:
-      - '**/checksum'   # avoid retrigger when we only update checksum files
+      - '**/checksum'   # avoid retrigger on checksum-only commits
 
 jobs:
   update-app-checksums:
@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0
+          fetch-depth: 0   # ensure full history so 'before' is usually reachable
 
       - name: Setup Git
         if: steps.check_workflow.outputs.skip == 'false'
@@ -36,7 +36,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
-      - name: Determine locales that changed (root-level)
+      - name: Determine locales that changed (root-level, bootstrap-safe)
         if: steps.check_workflow.outputs.skip == 'false'
         id: changed_locales
         shell: bash
@@ -46,20 +46,33 @@ jobs:
           BEFORE="${{ github.event.before }}"
           AFTER="${{ github.sha }}"
 
-          if [ -z "${BEFORE}" ] || [ "${BEFORE}" = "0000000000000000000000000000000000000000" ]; then
-            echo "Initial push or missing 'before'; bootstrap from all top-level dirs containing JSON."
-            # Find first path segment (top-level dir) for any JSON file anywhere
-            mapfile -t LOCALES < <(find . -type f -name '*.json' -printf '%P\n' \
+          bootstrap_locales() {
+            # Top-level dirs that contain at least one JSON
+            mapfile -t LOCALES < <(find . -maxdepth 2 -type f -name '*.json' -printf '%P\n' \
               | sed -nE 's#^([^/]+)/.*#\1#p' \
               | grep -E '^[^./][^/]*$' \
               | sort -u)
+          }
+
+          LOCALES=()
+
+          # Decide whether 'before' is usable; if not, bootstrap
+          if [ -z "${BEFORE}" ] || [ "${BEFORE}" = "0000000000000000000000000000000000000000" ] || ! git cat-file -e "${BEFORE}^{commit}" 2>/dev/null; then
+            echo "Bootstrapping: 'before' is missing/unreachable. Hashing all top-level locale dirs with JSON."
+            bootstrap_locales
           else
-            # Diff for any changed JSON file, extract first path segment (top-level dir)
+            # Compute changed top-level dirs from JSON diffs
             mapfile -t LOCALES < <(git diff --name-only "${BEFORE}" "${AFTER}" -- \
               | grep -E '\.json$' \
               | sed -nE 's#^([^/]+)/.*#\1#p' \
               | grep -E '^[^./][^/]*$' \
               | sort -u)
+
+            # If no diffs but no checksum files exist yet, bootstrap
+            if [ "${#LOCALES[@]}" -eq 0 ] && ! find . -maxdepth 2 -type f -name checksum | grep -q .; then
+              echo "No checksum files found; bootstrapping all top-level locale dirs with JSON."
+              bootstrap_locales
+            fi
           fi
 
           if [ "${#LOCALES[@]}" -eq 0 ]; then
@@ -69,9 +82,9 @@ jobs:
           fi
 
           echo "locales=${LOCALES[*]}" >> "$GITHUB_OUTPUT"
-          printf 'Changed locales: %s\n' "${LOCALES[*]}"
+          printf 'Locales to process: %s\n' "${LOCALES[*]}"
 
-      - name: Update checksum files for changed locales
+      - name: Update checksum files for locales
         if: steps.check_workflow.outputs.skip == 'false' && steps.changed_locales.outputs.locales != ''
         id: update
         shell: bash
@@ -80,7 +93,7 @@ jobs:
           IFS=' ' read -r -a LOCALES <<< "${{ steps.changed_locales.outputs.locales }}"
           UPDATED=""
           for locale in "${LOCALES[@]}"; do
-            dir="$locale"  # root-level locale directory
+            dir="$locale"
             if [ ! -d "$dir" ]; then
               echo "Skipping $locale (not a directory)."
               continue
@@ -88,7 +101,6 @@ jobs:
 
             mapfile -t files < <(find "$dir" -type f -name '*.json' | sort)
             if [ "${#files[@]}" -eq 0 ]; then
-              # No JSON files -> hash of empty content
               checksum=$(printf '' | sha256sum | cut -d' ' -f1)
             else
               checksum=$(cat "${files[@]}" | sha256sum | cut -d' ' -f1)
@@ -129,12 +141,12 @@ jobs:
           if [ -z "${{ steps.changed_locales.outputs.locales }}" ]; then
             echo "No locale JSON changes detected." >> "$GITHUB_STEP_SUMMARY"
           else
-            echo "**Changed locales considered:** \`${{ steps.changed_locales.outputs.locales }}\`" >> "$GITHUB_STEP_SUMMARY"
+            echo "**Processed locales:** \`${{ steps.changed_locales.outputs.locales }}\`" >> "$GITHUB_STEP_SUMMARY"
             if [ -n "${{ steps.update.outputs.updated }}" ]; then
               echo "" >> "$GITHUB_STEP_SUMMARY"
               echo "✅ **Updated:** \`${{ steps.update.outputs.updated }}\`" >> "$GITHUB_STEP_SUMMARY"
             else
               echo "" >> "$GITHUB_STEP_SUMMARY"
-              echo "ℹ️ Checksums unchanged for changed locales." >> "$GITHUB_STEP_SUMMARY"
+              echo "ℹ️ Checksums unchanged." >> "$GITHUB_STEP_SUMMARY"
             fi
           fi
