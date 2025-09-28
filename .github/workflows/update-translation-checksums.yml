@@ -3,7 +3,7 @@ name: Update App Translation Checksums
 on:
   push:
     paths-ignore:
-      - '**/checksum'
+      - '**/checksum'   # avoid retrigger when we only update checksum files
 
 jobs:
   update-app-checksums:
@@ -36,7 +36,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
-      - name: Determine locales that changed
+      - name: Determine locales that changed (root-level)
         if: steps.check_workflow.outputs.skip == 'false'
         id: changed_locales
         shell: bash
@@ -47,13 +47,19 @@ jobs:
           AFTER="${{ github.sha }}"
 
           if [ -z "${BEFORE}" ] || [ "${BEFORE}" = "0000000000000000000000000000000000000000" ]; then
-            echo "Initial push or missing 'before'; consider all locales under app/ that contain JSON."
-            mapfile -t LOCALES < <(find app -type f -name '*.json' -printf '%P\n' \
-              | sed -E 's#^([^/]+)/.*#\1#' | sort -u)
+            echo "Initial push or missing 'before'; bootstrap from all top-level dirs containing JSON."
+            # Find first path segment (top-level dir) for any JSON file anywhere
+            mapfile -t LOCALES < <(find . -type f -name '*.json' -printf '%P\n' \
+              | sed -nE 's#^([^/]+)/.*#\1#p' \
+              | grep -E '^[^./][^/]*$' \
+              | sort -u)
           else
-            # Diff everything under app/, filter to JSON, then extract the first directory (locale)
-            mapfile -t LOCALES < <(git diff --name-only "${BEFORE}" "${AFTER}" -- app \
-              | grep -E '\.json$' | sed -nE 's#^app/([^/]+)/.*#\1#p' | sort -u)
+            # Diff for any changed JSON file, extract first path segment (top-level dir)
+            mapfile -t LOCALES < <(git diff --name-only "${BEFORE}" "${AFTER}" -- \
+              | grep -E '\.json$' \
+              | sed -nE 's#^([^/]+)/.*#\1#p' \
+              | grep -E '^[^./][^/]*$' \
+              | sort -u)
           fi
 
           if [ "${#LOCALES[@]}" -eq 0 ]; then
@@ -74,9 +80,15 @@ jobs:
           IFS=' ' read -r -a LOCALES <<< "${{ steps.changed_locales.outputs.locales }}"
           UPDATED=""
           for locale in "${LOCALES[@]}"; do
-            dir="app/$locale"
+            dir="$locale"  # root-level locale directory
+            if [ ! -d "$dir" ]; then
+              echo "Skipping $locale (not a directory)."
+              continue
+            fi
+
             mapfile -t files < <(find "$dir" -type f -name '*.json' | sort)
             if [ "${#files[@]}" -eq 0 ]; then
+              # No JSON files -> hash of empty content
               checksum=$(printf '' | sha256sum | cut -d' ' -f1)
             else
               checksum=$(cat "${files[@]}" | sha256sum | cut -d' ' -f1)
