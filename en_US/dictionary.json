@@ -1,28 +1,28 @@
 {
-  "actions": {
-    "login": "Login",
-    "logout": "Logout",
-    "register": "Register",
-    "rememberMe": "Remember Me",
-    "close": "Close",
-    "back": "Back",
-    "next": "Next",
-    "retry": "Retry",
-    "cancel": "Cancel",
-    "save": "Save",
-    "search": "Search",
-    "confirm": "Confirm"
-  },
-  "locales": {
-    "en_US": "English (United States)",
-    "ru_RU": "Russian (Russia)"
-  },
-  "themes": {
-    "dark": "Dark (Default)",
-    "oled": "OLED (Deep Black)"
-  },
-  "words": {
-    "profile": "Profile",
-    "settings": "Settings"
-  }
+	"actions": {
+		"back": "Back",
+		"cancel": "Cancel",
+		"close": "Close",
+		"confirm": "Confirm",
+		"login": "Login",
+		"logout": "Logout",
+		"next": "Next",
+		"register": "Register",
+		"rememberMe": "Remember Me",
+		"retry": "Retry",
+		"save": "Save",
+		"search": "Search"
+	},
+	"locales": {
+		"en_US": "English (United States)",
+		"ru_RU": "Russian (Russia)"
+	},
+	"themes": {
+		"dark": "Dark (Default)",
+		"oled": "OLED (Deep Black)"
+	},
+	"words": {
+		"profile": "Profile",
+		"settings": "Settings"
+	}
 }
