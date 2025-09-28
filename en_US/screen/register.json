@@ -1,0 +1,123 @@
+{
+  "steps": {
+    "username": {
+      "title": "Select a Username",
+      "subtitle": "Choose a unique username for your account. You can not change it later.",
+      "label": "Enter a username for your account",
+      "hint": "At least 3 characters, letters and numbers only",
+      "errors": {
+        "required": "Username is required",
+        "short": "Username must be at least 3 characters long",
+        "taken": "Username is already taken by another user",
+        "validation": "@dictionary.errors.validation.username",
+        "connection": "@dictionary.errors.connection",
+        "server": "@dictionary.errors.server",
+        "unknown": "@dictionary.errors.unknown"
+      }
+    },
+    "email": {
+      "title": "Enter Your Email",
+      "subtitle": "Your email will be used for notifications, password recovery, and to verify your account at the end of registration.",
+      "label": "Enter your email address",
+      "hint": "Email",
+      "errors": {
+        "validation": "Email must be a valid email address"
+      }
+    },
+    "password": {
+      "title": "Set a Password",
+      "subtitle": "Choose a strong password to protect your account. You can change it later in your account settings.",
+      "fields": {
+        "password": {
+          "label": "Enter a password for your account",
+          "hint": "At least 8 characters, letters and numbers only"
+        },
+        "passwordConfirm": {
+          "label": "Confirm your password",
+          "hint": "Repeat your password"
+        }
+      },
+      "errors": {
+        "length": "Password must be at least 8 characters long",
+        "uppercase": "Password must contain at least one uppercase letter",
+        "lowercase": "Password must contain at least one lowercase letter",
+        "digit": "Password must contain at least one digit",
+        "special": "Password must contain at least one special character (e.g., !@#$%^&*)",
+        "mismatch": "Passwords do not match"
+      }
+    },
+    "name": {
+      "title": "Your Name",
+      "subtitle": "Enter your full name. It won't be visible to other users by default, but you can choose to display it in your profile later.",
+      "fields": {
+        "firstname": {
+          "label": "First Name",
+          "hint": "Your first name"
+        },
+        "lastname": {
+          "label": "Last Name",
+          "hint": "Your last name"
+        }
+      },
+      "errors": {
+        "length": "First and last names must be at least 2 and at most 27 characters long",
+        "format": "Name must contain only letters and spaces"
+      }
+    },
+    "preferences": {
+      "title": "Set Your Preferences",
+      "subtitle": "Choose your preferences to show you relevant content.",
+      "fields": {
+        "locale": {
+          "label": "Select Preferred Language",
+          "hint": "Select a language for interface and content"
+        },
+        "country": {
+          "label": "Select Your Country",
+          "hint": "Choose your country to get regional content"
+        },
+        "birthday": {
+          "label": "Write Your Birthday",
+          "hint": "dd.MM.yyyy (06.11.2022)"
+        }
+      },
+      "actions": {
+        "search": "@dictionary.actions.search"
+      },
+      "sheets": {
+        "locale": "Select language",
+        "country": "Select country",
+        "birthday": "Select your birthday"
+      },
+      "errors": {
+        "locale": "A preferred language is required",
+        "country": "Country is required",
+        "birthday": {
+          "required": "Birthday is required",
+          "format": "Birthday must be in the format dd.MM.yyyy (e.g., 06.11.2022) and be a real date",
+          "range": "Birthday must be realistic (not in the future or more than 100 years ago)",
+          "young": "You must be at least 10 years old to register",
+          "day": "@dictionary.errors.datetime.day"
+        }
+      }
+    },
+    "confirmation": {
+      "title": "Complete Your Registration",
+      "subtitle": "You're almost there! Just one more step to start using the app.",
+      "rules": "I have read and agree to abide by the Community Rules.",
+      "terms": "I agree to the Terms and Conditions and have read the Privacy Policy.",
+      "rememberMe": "Keep me signed in after registration",
+      "actions": {
+        "finish": "@dictionary.actions.register"
+      }
+    }
+  },
+  "actions": {
+    "next": "@dictionary.actions.next",
+    "back": "Go a step back"
+  },
+  "errors": {
+    "validation": "Invalid input, please check your entries",
+    "exists": "Username or email is already used by another user"
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "title": "Oops! Something Went Wrong",
+  "content": "We caught an error while processing your request: \n\n{exception}"
+}
