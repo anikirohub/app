@@ -135,7 +135,7 @@ jobs:
           COUNT=$(printf '%s\n' "$LOCALES_LIST" | wc -w | awk '{print $1}')
           
           git status
-          git commit -m "Update translation checksums [skip ci] - ${COUNT} locale(s)" || echo "No changes to commit"
+          git commit -m "chore: update translation checksums [${COUNT} locale(s)]" || echo "No changes to commit"
           git push
 
       - name: Summary
