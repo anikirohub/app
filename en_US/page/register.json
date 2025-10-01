@@ -4,26 +4,13 @@
       "title": "Select a Username",
       "subtitle": "Choose a unique username for your account. You can not change it later.",
       "label": "Enter a username for your account",
-      "hint": "At least 3 characters, letters and numbers only",
-      "errors": {
-        "empty": "Username is required",
-        "validation": "@global.validation.username",
-        "unavailable": "Username is already taken by another user",
-        "connection": "@global.exception.network",
-        "server": "@global.exception.server",
-        "unknown": "@global.exception.unknown"
-      }
+      "hint": "At least 3 characters, letters and numbers only"
     },
     "email": {
       "title": "Enter Your Email",
       "subtitle": "Your email will be used for notifications, password recovery, and to verify your account at the end of registration.",
       "label": "Enter your email address",
-      "hint": "Email",
-      "errors": {
-        "empty": "Email is required",
-        "validation": "@global.validation.email",
-        "unavailable": "Email is already used by another user"
-      }
+      "hint": "Email"
     },
     "password": {
       "title": "Set a Password",
@@ -37,15 +24,6 @@
           "label": "Confirm your password",
           "hint": "Repeat your password"
         }
-      },
-      "errors": {
-        "empty": "Password and confirmation are required",
-        "length": "@global.validation.password.short",
-        "uppercase": "@global.validation.password.uppercase",
-        "lowercase": "@global.validation.password.lowercase",
-        "digit": "@global.validation.password.digit",
-        "special": "@global.validation.password.special",
-        "mismatch": "Passwords do not match"
       }
     },
     "name": {
@@ -59,17 +37,6 @@
         "lastname": {
           "label": "Last Name",
           "hint": "Your last name"
-        }
-      },
-      "errors": {
-        "empty": "First name and last name are required",
-        "length": {
-          "firstname": "@global.validation.name.length.firstname",
-          "lastname": "@global.validation.name.length.lastname"
-        },
-        "format": {
-          "firstname": "@global.validation.name.format.firstname",
-          "lastname": "@global.validation.name.format.lastname"
         }
       }
     },
@@ -97,14 +64,6 @@
         "locale": "Select language",
         "country": "Select country",
         "birthday": "Select your birthday"
-      },
-      "errors": {
-        "birthday": {
-          "empty": "Birthday is required",
-          "format": "@global.validation.birthday.format",
-          "range": "@global.validation.birthday.range",
-          "young": "@global.validation.birthday.young"
-        }
       }
     },
     "confirmation": {
