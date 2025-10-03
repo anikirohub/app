@@ -2,8 +2,8 @@
   "name": "Account",
   "username": {
     "title": "Change Username",
-    "subtitle": "You can change your username that is displayed in the app. This will not affect your login credentials.",
-    "information": "You can change username by editing this field and saving changes. Make sure to choose a unique username that is not already taken by another user.\n\nYou can change your username once per month",
+    "subtitle": "You can change your username that is displayed in the app.\nThis will not affect your login credentials.",
+    "information": "You can change username by editing this field and saving changes.\nMake sure to choose a unique username that is not already taken by another user.\n\nYou can change your username once per month",
     "field": {
       "label": "Enter your new username",
       "hint": "Username"
