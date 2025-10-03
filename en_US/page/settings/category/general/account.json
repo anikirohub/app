@@ -1,5 +1,24 @@
 {
   "name": "Account",
+  "username": {
+    "title": "Change Username",
+    "subtitle": "You can change your username that is displayed in the app. This will not affect your login credentials.",
+    "information": "You can change username by editing this field and saving changes. Make sure to choose a unique username that is not already taken by another user.\n\nYou can change your username once per month",
+    "field": {
+      "label": "Enter your new username",
+      "hint": "Username"
+    },
+    "status": {
+      "success": {
+        "title": "Username changed successfully",
+        "content": "Your username has been changed successfully. We wish you a great time watching your favorite animes!"
+      },
+      "error": {
+        "title": "Username change failed",
+        "content": "There was a problem changing your username. If the problem persists, please contact support and provide following information:\n\n{error}"
+      }
+    }
+  },
   "logout": {
     "title": "Log Out",
     "subtitle": "You can log out of your account by using this button. This will require you to log back in to the app.",

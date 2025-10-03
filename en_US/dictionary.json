@@ -15,7 +15,8 @@
   },
   "locales": {
     "en_US": "English (United States)",
-    "ru_RU": "Russian (Russia)"
+    "ru_RU": "Russian (Russia)",
+    "de_DE": "German (Germany)"
   },
   "themes": {
     "dark": "Dark (Default)",

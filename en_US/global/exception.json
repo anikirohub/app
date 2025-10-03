@@ -9,6 +9,10 @@
       "refreshToken": "Your session has expired. Please log in again."
     }
   },
+  "availability": {
+    "username": "Username is already taken, you have to choose another one.",
+    "email": "Email is already used by another account, you have to choose another one."
+  },
   "register": {
     "exists": "An account with this username or email already exists.",
     "validation": "There was a problem with your registration details. Please check and try again."
