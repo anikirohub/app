@@ -18,6 +18,12 @@
           "placeholder": "1080"
         }
       },
+      "status": {
+        "error": {
+          "title": "Failed to set window size",
+          "content": "Please check your input and try again.\n\nIf the problem persists, please contact support and provide following information:\n\n{error}"
+        }
+      },
       "actions": {
         "clear": "Clear override",
         "apply": "@dictionary.actions.apply"
