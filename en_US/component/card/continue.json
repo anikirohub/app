@@ -1,0 +1,10 @@
+{
+  "format": {
+    "episode": "{episode} @dictionary.words.short.episode",
+    "units": {
+      "thousand": "{views} @dictionary.words.short.abbreviations.thousand",
+      "million": "{views} @dictionary.words.short.abbreviations.million",
+      "billion": "{views} @dictionary.words.short.abbreviations.billion"
+    }
+  }
+}

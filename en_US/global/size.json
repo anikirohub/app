@@ -1,0 +1,6 @@
+{
+  "byte": "{size} @dictionary.words.short.units.byte",
+  "kilobyte": "{size} @dictionary.words.short.units.kilobyte",
+  "megabyte": "{size} @dictionary.words.short.units.megabyte",
+  "gigabyte": "{size} @dictionary.words.short.units.gigabyte"
+}

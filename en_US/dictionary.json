@@ -24,6 +24,20 @@
   },
   "words": {
     "profile": "Profile",
-    "settings": "Settings"
+    "settings": "Settings",
+    "short": {
+      "episode": "ep.",
+      "units": {
+        "byte": "B",
+        "kilobyte": "KB",
+        "megabyte": "MB",
+        "gigabyte": "GB"
+      },
+      "abbreviations": {
+        "thousand": "K",
+        "million": "M",
+        "billion": "B"
+      }
+    }
   }
 }
