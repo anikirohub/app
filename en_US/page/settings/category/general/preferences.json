@@ -3,13 +3,18 @@
   "locale": {
     "title": "Locale selection",
     "subtitle": "Select your preferred language for the application interface.",
-    "success": {
-      "title": "Locale updated",
-      "content": "Your preferred language has been successfully updated.\n\nWe wish you a great time watching your favorite animes!"
+    "status": {
+      "success": {
+        "title": "Locale updated",
+        "content": "Your preferred language has been successfully updated.\n\nWe wish you a great time watching your favorite animes!"
+      },
+      "error": {
+        "title": "Update failed",
+        "content": "There was an error updating your preferred language.\n\nIf the problem persists, please contact support and provide following information:\n\n{error}"
+      }
     },
-    "error": {
-      "title": "Update failed",
-      "content": "There was an error updating your preferred language.\n\nIf the problem persists, please contact support and provide following information:\n\n{error}"
+    "actions": {
+      "save": "@dictionary.actions.save"
     }
   }
 }

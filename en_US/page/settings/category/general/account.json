@@ -3,7 +3,7 @@
   "username": {
     "title": "Change Username",
     "subtitle": "You can change your username that is displayed in the app.\nThis will not affect your login credentials.",
-    "information": "You can change username by editing this field and saving changes.\nMake sure to choose a unique username that is not already taken by another user.\n\nYou can change your username once per month",
+    "information": "You can change username by editing this field and saving changes.\n\nYou can change your username once per month",
     "field": {
       "label": "Enter your new username",
       "hint": "Username"
@@ -17,15 +17,23 @@
         "title": "Username change failed",
         "content": "There was a problem changing your username.\n\nIf the problem persists, please contact support and provide following information:\n\n{error}"
       }
+    },
+    "actions": {
+      "save": "@dictionary.actions.save",
+      "cancel": "@dictionary.actions.cancel"
     }
   },
   "logout": {
     "title": "Log Out",
     "subtitle": "You can log out of your account by using this button. This will require you to log back in to the app.",
     "action": "Log Out",
-    "modal": {
+    "success": {
       "title": "Are you sure you want to log out?",
       "content": "Logging out will require you to log back in to the app."
+    },
+    "error": {
+      "title": "Log out failed",
+      "content": "There was a problem logging out.\n\nIf the problem persists, please contact support and provide following information:\n\n{error}"
     }
   }
 }

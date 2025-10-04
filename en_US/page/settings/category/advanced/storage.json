@@ -1,25 +1,39 @@
 {
   "name": "Storage",
-  "storageView": {
-    "title": "Storage Used",
+  "view": {
+    "title": "Storage used",
     "subtitle": "See how space is distributed across different data types."
   },
-  "clearNetworkCache": {
-    "title": "Clear Network Cache",
-    "subtitle": "Remove cached data from network requests to free up space and ensure you have the latest content.",
-    "action": "Clear Cache",
-    "modal": {
-      "title": "Cache Cleared",
-      "content": "All cached network data has been successfully cleared."
-    }
-  },
-  "clearTranslationCache": {
-    "title": "Clear Translation Cache",
-    "subtitle": "Remove cached translations to ensure you have the latest language updates.",
-    "action": "Clear Translations",
-    "modal": {
-      "title": "Translations Cleared",
-      "content": "All cached translations have been successfully cleared."
+  "clear": {
+    "network": {
+      "title": "Clear network cache",
+      "subtitle": "Remove cached data from network requests to free up space and ensure you have the latest content.",
+      "action": "Clear cache",
+      "status": {
+        "success": {
+          "title": "Cache cleared",
+          "content": "All cached network data has been successfully cleared."
+        },
+        "error": {
+          "title": "Cache clear failed",
+          "content": "There was a problem clearing the cache.\n\nIf the problem persists, please contact support and provide following information:\n\n{error}"
+        }
+      }
+    },
+    "translation": {
+      "title": "Clear translation cache",
+      "subtitle": "Remove cached translations to ensure you have the latest language updates.",
+      "action": "Clear translations",
+      "status": {
+        "success": {
+          "title": "Translations cleared",
+          "content": "All cached translations have been successfully cleared."
+        },
+        "error": {
+          "title": "Translation clear failed",
+          "content": "There was a problem clearing the translations.\n\nIf the problem persists, please contact support and provide following information:\n\n{error}"
+        }
+      }
     }
   }
 }

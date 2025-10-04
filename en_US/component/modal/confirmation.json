@@ -1,0 +1,6 @@
+{
+  "actions": {
+    "close": "@dictionary.actions.close",
+    "confirm": "@dictionary.actions.confirm"
+  }
+}
