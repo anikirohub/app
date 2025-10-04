@@ -2,14 +2,14 @@
   "name": "Preferences",
   "locale": {
     "title": "Locale selection",
-    "description": "Select your preferred language for the application interface.",
+    "subtitle": "Select your preferred language for the application interface.",
     "success": {
       "title": "Locale updated",
-      "content": "Your preferred language has been successfully updated.\nWe wish you a great time watching your favorite animes!"
+      "content": "Your preferred language has been successfully updated.\n\nWe wish you a great time watching your favorite animes!"
     },
     "error": {
       "title": "Update failed",
-      "content": "There was an error updating your preferred language.\nIf the problem persists, please contact support and provide following information:\n\n{error}"
+      "content": "There was an error updating your preferred language.\n\nIf the problem persists, please contact support and provide following information:\n\n{error}"
     }
   }
 }

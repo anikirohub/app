@@ -11,11 +11,11 @@
     "status": {
       "success": {
         "title": "Username changed successfully",
-        "content": "Your username has been changed successfully.\nWe wish you a great time watching your favorite animes!"
+        "content": "Your username has been changed successfully.\n\nWe wish you a great time watching your favorite animes!"
       },
       "error": {
         "title": "Username change failed",
-        "content": "There was a problem changing your username.\nIf the problem persists, please contact support and provide following information:\n\n{error}"
+        "content": "There was a problem changing your username.\n\nIf the problem persists, please contact support and provide following information:\n\n{error}"
       }
     }
   },
