@@ -2,7 +2,7 @@
   "name": "Render",
   "breakpoint": {
     "title": "Breakpoint selection",
-    "subtitle": "Override current breakpoint for rendering",
+    "subtitle": "Override current breakpoint for rendering"
   },
   "window": {
     "size": {
