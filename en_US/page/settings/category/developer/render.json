@@ -13,6 +13,7 @@
         "height": "Height"
       },
       "actions": {
+        "clear": "Clear override",
         "apply": "@dictionary.actions.apply"
       }
     }
