@@ -2,7 +2,7 @@
   "steps": {
     "username": {
       "title": "Select a Username",
-      "subtitle": "Choose a unique username for your account. You can not change it later.",
+      "subtitle": "Choose a unique username for your account. You can change it later.",
       "label": "Enter a username for your account",
       "hint": "At least 3 characters, letters and numbers only"
     },
