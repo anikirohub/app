@@ -11,12 +11,22 @@
     "cancel": "Cancel",
     "save": "Save",
     "search": "Search",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "apply": "Apply"
   },
   "locales": {
     "en_US": "English (United States)",
     "ru_RU": "Russian (Russia)",
     "de_DE": "German (Germany)"
+  },
+  "breakpoints": {
+    "auto": "Auto",
+    "small": "Small",
+    "medium": "Medium",
+    "large": "Large",
+    "xlarge": "XLarge",
+    "xxlarge": "XXLarge",
+    "xxxlarge": "XXXLarge"
   },
   "themes": {
     "dark": "Dark (Default)",

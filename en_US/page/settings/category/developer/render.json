@@ -1,0 +1,20 @@
+{
+  "name": "Render",
+  "breakpoint": {
+    "title": "Breakpoint selection",
+    "subtitle": "Override current breakpoint for rendering",
+    "actions": {
+      "apply": "@dictionary.actions.apply"
+    }
+  },
+  "window": {
+    "size": {
+      "title": "Window size",
+      "subtitle": "Override current window size",
+      "fields": {
+        "width": "Width",
+        "height": "Height"
+      }
+    }
+  }
+}
