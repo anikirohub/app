@@ -9,8 +9,14 @@
       "title": "Window size",
       "subtitle": "Override current window size",
       "fields": {
-        "width": "Width",
-        "height": "Height"
+        "width": {
+          "label": "Width",
+          "placeholder": "1920"
+        },
+        "height": {
+          "label": "Height",
+          "placeholder": "1080"
+        }
       },
       "actions": {
         "clear": "Clear override",
