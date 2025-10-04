@@ -3,9 +3,6 @@
   "breakpoint": {
     "title": "Breakpoint selection",
     "subtitle": "Override current breakpoint for rendering",
-    "actions": {
-      "apply": "@dictionary.actions.apply"
-    }
   },
   "window": {
     "size": {
@@ -14,6 +11,9 @@
       "fields": {
         "width": "Width",
         "height": "Height"
+      },
+      "actions": {
+        "apply": "@dictionary.actions.apply"
       }
     }
   }
