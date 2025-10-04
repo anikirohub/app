@@ -1,6 +1,7 @@
 {
     "types": {
         "http": "Сеть",
-        "translations": "Переводы"
+        "translations": "Переводы",
+        "other": "Другое"
     }
 }
