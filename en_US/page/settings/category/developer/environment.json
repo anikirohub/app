@@ -7,5 +7,9 @@
   "mockCaching": {
     "title": "Mock Caching",
     "subtitle": "Toggle caching of web requests when using mock environment"
+  },
+  "focusOverlay": {
+    "title": "Focus Overlay",
+    "subtitle": "Show a focus overlay to highlight the focused element"
   }
 }
