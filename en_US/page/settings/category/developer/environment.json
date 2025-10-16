@@ -13,7 +13,7 @@
     "subtitle": "Enable or disable image caching"
   },
   "focusOverlay": {
-    "title": "Focus щverlay",
+    "title": "Focus overlay",
     "subtitle": "Show a focus overlay to highlight the focused element"
   }
 }
