@@ -34,6 +34,28 @@
           "content": "There was a problem clearing the translations.\n\nIf the problem persists, please contact support and provide following information:\n\n{error}"
         }
       }
+    },
+    "cover": {
+      "title": "Clear cover images",
+      "subtitle": "Remove cached anime and manga cover images",
+      "action": "Clear covers",
+      "status": {
+        "error": {
+          "title": "Failed to clear",
+          "content": "There was a problem clearing the cover images.\n\nIf the problem persists, please contact support and provide following information:\n\n{error}"
+        }
+      }
+    },
+    "images": {
+      "title": "Clear all images",
+      "subtitle": "Remove all cached images (covers, avatars, backgrounds)",
+      "action": "Clear images",
+      "status": {
+        "error": {
+          "title": "Failed to clear",
+          "content": "There was a problem clearing the images.\n\nIf the problem persists, please contact support and provide following information:\n\n{error}"
+        }
+      }
     }
   }
 }
