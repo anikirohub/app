@@ -5,11 +5,15 @@
     "subtitle": "Select the environment for the app"
   },
   "mockCaching": {
-    "title": "Mock Caching",
+    "title": "Mock сaching",
     "subtitle": "Toggle caching of web requests when using mock environment"
   },
+  "imageCaching": {
+    "title": "Image сaching",
+    "subtitle": "Enable or disable image caching"
+  },
   "focusOverlay": {
-    "title": "Focus Overlay",
+    "title": "Focus щverlay",
     "subtitle": "Show a focus overlay to highlight the focused element"
   }
 }
