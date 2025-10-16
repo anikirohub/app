@@ -2,6 +2,10 @@
   "types": {
     "http": "Network",
     "translations": "Translations",
+    "images": {
+      "cover": "Cover Image",
+      "other": "Other Images"
+    },
     "other": "Other"
   }
 }
