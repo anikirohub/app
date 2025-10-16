@@ -27,13 +27,15 @@
     "title": "Log Out",
     "subtitle": "You can log out of your account by using this button. This will require you to log back in to the app.",
     "action": "Log Out",
-    "success": {
-      "title": "Are you sure you want to log out?",
-      "content": "Logging out will require you to log back in to the app."
-    },
-    "error": {
-      "title": "Log out failed",
-      "content": "There was a problem logging out.\n\nIf the problem persists, please contact support and provide following information:\n\n{error}"
+    "status": {
+      "success": {
+        "title": "Are you sure you want to log out?",
+        "content": "Logging out will require you to log back in to the app."
+      },
+      "error": {
+        "title": "Log out failed",
+        "content": "There was a problem logging out.\n\nIf the problem persists, please contact support and provide following information:\n\n{error}"
+      }
     }
   }
 }
