@@ -16,5 +16,11 @@
     "actions": {
       "save": "@dictionary.actions.save"
     }
+  },
+  "video": {
+    "backgroundPlayback": {
+      "title": "Background video",
+      "subtitle": "Toggle background videos in the app, this may affect performance and battery life on some devices."
+    }
   }
 }
