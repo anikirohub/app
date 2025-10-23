@@ -4,5 +4,8 @@
     "actions": {
         "back": "@dictionary.actions.back",
         "retry": "@dictionary.actions.retry"
+    },
+    "errors": {
+        "expired": "Код действителен только в течение 5 минут. Пожалуйста, сгенерируйте новый код, нажав кнопку «Повторить»."
     }
 }
