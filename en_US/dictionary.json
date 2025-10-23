@@ -12,7 +12,8 @@
     "save": "Save",
     "search": "Search",
     "confirm": "Confirm",
-    "apply": "Apply"
+    "apply": "Apply",
+    "more": "More"
   },
   "locales": {
     "en_US": "English (United States)",
