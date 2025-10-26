@@ -36,6 +36,12 @@
   "words": {
     "profile": "Profile",
     "settings": "Settings",
+    "season": {
+      "spring": "Spring",
+      "summer": "Summer",
+      "fall": "Fall",
+      "winter": "Winter"
+    },
     "short": {
       "episode": "ep.",
       "units": {
