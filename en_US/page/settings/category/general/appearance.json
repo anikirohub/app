@@ -1,7 +1,11 @@
 {
   "name": "Appearance",
   "theme": {
-    "title": "App Theme",
+    "title": "App theme",
     "subtitle": "Choose your preferred app theme"
+  },
+  "navigation": {
+    "title": "Navigation type",
+    "subtitle": "Select desired look of the navigation"
   }
 }
