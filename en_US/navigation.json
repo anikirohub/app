@@ -5,5 +5,10 @@
     "library": "Library",
     "search": "Search",
     "settings": "Settings"
+  },
+  "types": {
+    "default": "Default",
+    "modern": "Modern",
+    "cupertino": "Cupertino"
   }
 }
